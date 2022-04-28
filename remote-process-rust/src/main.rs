@@ -54,7 +54,7 @@ fn get_ip() -> Result<IpAddr, Error> {
                 None
             }
         })
-        .ok_or_else(|| Error::OrgIpNotListed)
+        .ok_or(Error::OrgIpNotListed)
 }
 
 impl From<LocalIpError> for Error {
