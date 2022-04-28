@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package Communication;
+
+service Responder {
+    rpc CallingOut (pleaseMsg) returns (loudReply) {}
+}
+
+message RequestMsg {
+    string pleaseMsg = 1;
+}
+
+message RespnseMsg {
+    string loudReply = 1;
+}
