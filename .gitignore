@@ -1,2 +1,3 @@
 webapp-elm/index.html
 target/
+webapp-companion-wasm/Cargo.lock
