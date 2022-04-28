@@ -1,8 +1,8 @@
-module Main exposing (main)
+port module Main exposing (main)
 
 import Browser as Bro
-import Html exposing (button, div, h1, text)
-import Html.Attributes exposing (input)
+import Html exposing (Html, button, div, h1, input, text)
+import Html.Attributes exposing (placeholder, value)
 import Html.Events exposing (onClick, onInput)
 
 
@@ -24,38 +24,38 @@ port receiver : (String -> msg) -> Sub msg
 
 main : Program () Model Msg
 main =
-    Bro.element { init = init, update = update, view = view, subscription = subscription }
+    Bro.element { init = init, view = view, update = update, subscriptions = subscription }
 
 
 init : () -> ( Model, Cmd Msg )
 init flags =
-    { received = "", sent = "" } Cmd.none
+    ( { received = "test message", sent = "" }, Cmd.none )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Send ->
-            ( "", sender model )
+            ( model, sender model.sent )
 
         Receive receivedMsg ->
-            ( model ++ receivedMsg, Cmd.none )
+            ( { model | received = receivedMsg }, Cmd.none )
 
         UpdateMsg updateMsg ->
-            ( updateMsg, Cmd.none )
+            ( { model | sent = updateMsg }, Cmd.none )
 
 
 view : Model -> Html Msg
 view model =
     div []
         [ h1 [] [ text "Communication experiment between elm and backend rust appliction over gRPC" ]
-        , input [ value model onInput UpdateMsg placeholder "this message will be sent" ] []
+        , input [ value model.sent, onInput UpdateMsg, placeholder "this message will be sent" ] []
         , button [ onClick Send ] [ text "Send to remote rust-app" ]
         , div [] [ text "Following line displays the message from remote rust app" ]
-        , div [] [ text model ]
+        , div [] [ text model.received ]
         ]
 
 
 subscription : Model -> Sub Msg
 subscription _ =
-    receiver Recv
+    receiver Receive
