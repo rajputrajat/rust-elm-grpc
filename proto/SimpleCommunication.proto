@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Communication;
+package communication;
 
 service Responder {
     rpc CallingOut (RequestMsg) returns (RespnseMsg) {}
