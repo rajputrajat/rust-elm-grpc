@@ -3,7 +3,7 @@ syntax = "proto3";
 package Communication;
 
 service Responder {
-    rpc CallingOut (pleaseMsg) returns (loudReply) {}
+    rpc CallingOut (RequestMsg) returns (RespnseMsg) {}
 }
 
 message RequestMsg {
