@@ -3,13 +3,13 @@ syntax = "proto3";
 package communication;
 
 service Responder {
-    rpc CallingOut (RequestMsg) returns (RespnseMsg) {}
+    rpc CallingOut (RequestMsg) returns (ResponseMsg) {}
 }
 
 message RequestMsg {
     string pleaseMsg = 1;
 }
 
-message RespnseMsg {
+message ResponseMsg {
     string loudReply = 1;
 }
